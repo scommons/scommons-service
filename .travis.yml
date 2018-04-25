@@ -1,0 +1,25 @@
+language: scala
+sudo: false
+jdk:
+- oraclejdk8
+env:
+  global:
+  - TRAVIS_SBT_VERSION="0.13.16"
+  - secure: J3S6Y9lrlsPRFPV9i1MZ68O8RqzkydHWHD4SF5vLV1M0Gxr0ltjWz6GuVsQQfsOaUb3ucb1zt3QdhHk/LNmICLqeXDC/MYoHkF7X5K70Q+QbndXBY3taP3QjjrP2ZCyOo47/Tl98MqdlekOkE3hUJw5HxRWrnsHgLaz/mrOUYffuO/gyqdwFmSNw9YRbN2ELhNAdmbU/FVK0ufakMljv8HiuIxSVtTKzHt5LA/ifZseHI+WBuIHsyQ8ek5ZhAoBwcyyAOL+FWl8wA+4qLMJWrTi0GSmBUyFgeErvoO2Ly1cfXG6mjjhFOmeyRhGarm24CNx/TKGZ/yrw1af+BGBUc9pN5qSwH2+v5fSQi4hEN6Fpzpj08qvxwdwqETjf5GG8FVF3VfBCYewkWwbkMah7uS3/cCesP/PvHLjyqEwy4FIu1JifNtb+UUKASejO74AE0suQXMYzzD5UoFyxA6JBmQ46uMXcuhCYRVv0Nt4x3kqPw7zCjZwh/ft6HgeD3lVwHYtvP5FDGRtBG3WKdFEgTENZ0QOQp1ST18yl1QbL937MBHgeQXi+P+0BNZjAV38q5NWqIwSfdmsgAuRmlzKfZdE87QjE5eS59alKmCuzUDsmW+CmhfKmoYhnwTCDlw5qJogZ6op5GUKP0G5niMld41mEfpf+Tnk2ntE8JARvaro=
+  - secure: ldf3M6nVC2geTRuUFYHYEsrXkOLRtGAE8XjvBSLC7SsnCxWaUhTCsnTmo7trnkI2lssueE5quU56zJABFkcc0dMvSy13cLh69G857UM7MkSBP8dgt8UJ6qQlsIFPovTDx6nAPpiDI858z8kjbmVBLsfmYYJ016DiYF62nJkTbrYwY5OdGEsSac86Ou97SnCpLXWc29B/Rkw0qBeOE7qB6f3wggNW5UiCF5uwO8Qq7lPHLGwxssv2s8jxWGxRqNUDiARcEy0b18O6OsboX3HvkLiQg+BiVgmwexMbyqFp5nbZB1QC1FHyFDU/F3XE4zt4fe3chPVdt+s5ambBhK/nVW6H8+WfBHUhCYlz7st8ZIN7fUQXG3N3YcorasjuGKtS1N1ieMBx+CVpSjbxscWMsbR0lOHmBo1zchQJdZ9tVakixtG82/1Q1pLACiagcFF8OAUIbmmm1UgE6XA1liGvyfH7rxOgOZbseOhsoVfARsGp0gtNFjE3QVVRhfjvhtgC0mGvjNGC8I4e83g0Cus1tO7/fV4sYnnmVn/HrQVRcIl37BolnUhGYBXTUZgqQwDFNJuuXJpkS/A3Af7z711AjgbhxtkWEeXCQsfZa5grE7rhGtmO9L1QAYSN6pQ6HuhMXbzAFt0rqz8XrU4S18Ix04neQ8q9ynTEMpQWM2z7QL8=
+script:
+- sbt clean coverage test coverageReport &&
+  sbt coverageAggregate
+after_success:
+- sbt coveralls
+- if [ $TRAVIS_BRANCH = 'master' ] && [[ "$(<version.sbt)" =~ (.*SNAPSHOT.*) ]]; then
+    sbt clean publish;
+  fi
+cache:
+  directories:
+  - "$HOME/.ivy2/cache"
+  - "$HOME/.sbt"
+before_cache:
+# Cleanup the cached directories to avoid unnecessary cache updates
+- find $HOME/.ivy2/cache -name "ivydata-*.properties" -print -delete
+- find $HOME/.sbt        -name "*.lock"               -print -delete
