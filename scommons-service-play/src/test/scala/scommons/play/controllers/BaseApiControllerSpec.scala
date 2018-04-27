@@ -2,15 +2,10 @@ package scommons.play.controllers
 
 import java.io.{PrintWriter, StringWriter}
 
-import akka.actor.ActorSystem
-import akka.stream.{ActorMaterializer, ActorMaterializerSettings}
 import org.mockito.Matchers.{any, eq => mEq}
 import org.mockito.Mockito._
 import org.mockito.invocation.InvocationOnMock
 import org.scalatest._
-import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.mockito.MockitoSugar
-import org.scalatest.time.{Millis, Seconds, Span}
 import org.slf4j.Logger
 import play.api.libs.json.Json.toJson
 import play.api.libs.json.{Format, JsValue, Json}
@@ -22,17 +17,7 @@ import scommons.play.controllers.BaseApiControllerSpec.{TestData, TestResp}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class BaseApiControllerSpec extends FlatSpec
-  with Matchers
-  with BeforeAndAfterEach
-  with BeforeAndAfterAll
-  with MockitoSugar
-  with ScalaFutures {
-
-  implicit val defaultPatience = PatienceConfig(timeout = Span(5, Seconds), interval = Span(100, Millis))
-
-  private implicit val system = ActorSystem(getClass.getSimpleName)
-  private implicit val mat = ActorMaterializer(ActorMaterializerSettings(system))
+class BaseApiControllerSpec extends BaseControllerSpec {
 
   private val mockLogger = mock[Logger]
 
@@ -47,10 +32,6 @@ class BaseApiControllerSpec extends FlatSpec
 
   override protected def afterEach(): Unit = {
     verifyNoMoreInteractions(mockLogger)
-  }
-
-  override protected def afterAll(): Unit = {
-    system.terminate().futureValue
   }
 
   private def anyFunc1[T, R] = any.asInstanceOf[T => R]
