@@ -33,7 +33,7 @@ class BasePageControllerSpec extends BaseControllerSpec
   it should "fail if cannot find js" in {
     //given
     val prefix = "/app-prefix"
-    val project = "app-client2"
+    val project = "app-client3"
     val controller = new BasePageController(controllerComponents, finder, prefix, project) {}
 
     //when
@@ -46,23 +46,41 @@ class BasePageControllerSpec extends BaseControllerSpec
       s", searched for: List($project-opt.js, $project-fastopt.js)"
   }
 
-  it should "fail if cannot find css" in {
+  it should "not fail if cannot find css" in {
     //given
     val prefix = "/app-prefix"
-    val project = "app-client3"
+    val project = "app-client2"
     val controller = new BasePageController(controllerComponents, finder, prefix, project) {}
 
     //when
-    val e = the[IllegalArgumentException] thrownBy {
-      controller.index.apply(FakeRequest()).futureValue
-    }
+    val result = controller.index.apply(FakeRequest()).futureValue
 
     //then
-    e.getMessage shouldBe s"Could not find resource, project: $project" +
-      s", searched for: List(styles/$project-opt.css, styles/$project-fastopt.css)"
+    result.header.status shouldBe OK
+    result.body.consumeData.futureValue.utf8String shouldBe
+      s"""<!doctype html>
+         |        <html>
+         |          <head>
+         |            <meta charset="UTF-8" />
+         |            <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+         |
+         |            <link rel="stylesheet" href="$prefix/assets/lib/scommons-client-assets/css/bootstrap.min.css" />
+         |            <link rel="stylesheet" href="$prefix/assets/lib/scommons-client-assets/css/bootstrap-responsive.min.css" />
+         |            <link rel="stylesheet" href="$prefix/assets/lib/scommons-client-assets/css/custom.css" />
+         |            
+         |          </head>
+         |          <body>
+         |            <div id="root">Loading, please, wait...</div>
+         |
+         |            <script src="$prefix/assets/$project-opt-library.js"></script>
+         |            <script src="$prefix/assets/$project-opt-loader.js"></script>
+         |            <script src="$prefix/assets/$project-opt.js"></script>
+         |          </body>
+         |        </html>
+         |        """.stripMargin
   }
 
-  it should "return html page" in {
+  it should "return html page with client js and css" in {
     //given
     val prefix = "/app-prefix"
     val project = "app-client"
@@ -83,7 +101,6 @@ class BasePageControllerSpec extends BaseControllerSpec
          |            <link rel="stylesheet" href="$prefix/assets/lib/scommons-client-assets/css/bootstrap.min.css" />
          |            <link rel="stylesheet" href="$prefix/assets/lib/scommons-client-assets/css/bootstrap-responsive.min.css" />
          |            <link rel="stylesheet" href="$prefix/assets/lib/scommons-client-assets/css/custom.css" />
-         |
          |            <link rel="stylesheet" href="$prefix/assets/styles/$project-opt.css" />
          |          </head>
          |          <body>

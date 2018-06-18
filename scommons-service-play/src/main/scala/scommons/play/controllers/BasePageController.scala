@@ -13,25 +13,35 @@ abstract class BasePageController(components: ControllerComponents,
     val assetsBase = finder.assetsBasePath
     val assetsUrl = s"$prefix${finder.assetsUrlPrefix}"
 
-    def findFirst(prefix: String, suffix: String): String = {
+    def getResources(prefix: String, suffix: String): List[String] = {
       val name = project.toLowerCase
-      val resources = List(
+      List(
         s"$prefix$name-opt$suffix",
         s"$prefix$name-fastopt$suffix"
       )
+    }
 
+    def findFirst(resources: List[String]): Option[String] = {
       resources.collectFirst {
         case res if getClass.getResource(s"$assetsBase/$res") != null =>
           s"$assetsUrl/$res"
-      }.getOrElse(throw new IllegalArgumentException(
+      }
+    }
+
+    def scriptUrl(suffix: String): String = {
+      val resources = getResources("", suffix)
+
+      findFirst(resources).getOrElse(throw new IllegalArgumentException(
         s"Could not find resource, project: $project, searched for: $resources"
       ))
     }
 
-    def scriptUrl(suffix: String): String = findFirst("", suffix)
-    def styleUrl(): String = findFirst("styles/", ".css")
+    def styleUrl(): Option[String] = findFirst(getResources("styles/", ".css"))
 
-    val mainStyle = styleUrl()
+    val mainStyle = styleUrl().map { url =>
+      html"""<link rel="stylesheet" href="$url" />"""
+    }.getOrElse("")
+
     val mainScript = scriptUrl(".js")
     val loaderScript = scriptUrl("-loader.js")
     val libraryScript = scriptUrl("-library.js")
@@ -47,8 +57,7 @@ abstract class BasePageController(components: ControllerComponents,
             <link rel="stylesheet" href="$commonAssetsUrl/css/bootstrap.min.css" />
             <link rel="stylesheet" href="$commonAssetsUrl/css/bootstrap-responsive.min.css" />
             <link rel="stylesheet" href="$commonAssetsUrl/css/custom.css" />
-
-            <link rel="stylesheet" href="$mainStyle" />
+            $mainStyle
           </head>
           <body>
             <div id="root">Loading, please, wait...</div>
