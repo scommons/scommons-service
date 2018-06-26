@@ -1,8 +1,9 @@
-import common.Common
 import definitions._
+import scommons.sbtplugin.project.CommonModule
 
 lazy val `scommons-service` = (project in file("."))
-  .settings(Common.settings)
+  .settings(CommonModule.settings: _*)
+  .settings(ServiceModule.settings: _*)
   .settings(
     skip in publish := true,
     publish := (),
@@ -15,4 +16,4 @@ lazy val `scommons-service` = (project in file("."))
   `scommons-service-play`
 )
 
-lazy val `scommons-service-play` = ScommonsServicePlay.definition
+lazy val `scommons-service-play` = ServicePlay.definition

@@ -4,16 +4,14 @@ import common.{Libs, TestLibs}
 import sbt.Keys._
 import sbt._
 
-object ScommonsServicePlay extends BasicModule {
+object ServicePlay extends ServiceModule {
 
   override val id: String = "scommons-service-play"
 
-  override def definition: Project = {
-    super.definition
-      .settings(
-        description := "Common Scala Play! utilities and components"
-      )
-  }
+  override def definition: Project = super.definition
+    .settings(
+      description := "Common Scala Play! utilities and components"
+    )
 
   override val internalDependencies: Seq[ClasspathDep[ProjectReference]] = Nil
 
