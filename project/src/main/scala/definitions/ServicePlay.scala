@@ -15,8 +15,13 @@ object ServicePlay extends ServiceModule {
 
   override val internalDependencies: Seq[ClasspathDep[ProjectReference]] = Nil
 
+  override val superRepoProjectsDependencies: Seq[(String, String, Option[String])] = Seq(
+    ("scommons-api", "scommons-api-coreJVM", None)
+  )
+
   override val runtimeDependencies: Def.Initialize[Seq[ModuleID]] = Def.setting(Seq(
     Libs.scommonsApiCore.value,
+    
     Libs.play.value
   ))
 
