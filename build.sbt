@@ -13,7 +13,9 @@ lazy val `scommons-service` = (project in file("."))
     ideaExcludeFolders += s"${baseDirectory.value}/docs/_site"
   )
   .aggregate(
+  `scommons-service-dao`,
   `scommons-service-play`
 )
 
+lazy val `scommons-service-dao` = ServiceDao.definition
 lazy val `scommons-service-play` = ServicePlay.definition
