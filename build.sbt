@@ -15,9 +15,11 @@ lazy val `scommons-service` = (project in file("."))
   .aggregate(
   `scommons-service-dao`,
   `scommons-service-util`,
+  `scommons-service-test`,
   `scommons-service-play`
 )
 
 lazy val `scommons-service-dao` = ServiceDao.definition
 lazy val `scommons-service-util` = ServiceUtil.definition
+lazy val `scommons-service-test` = ServiceTest.definition
 lazy val `scommons-service-play` = ServicePlay.definition
