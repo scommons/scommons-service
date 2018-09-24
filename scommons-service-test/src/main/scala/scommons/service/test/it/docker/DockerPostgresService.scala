@@ -25,7 +25,7 @@ trait DockerPostgresService extends Suite
 
   private val defaultPostgresPort = 5432
 
-  private val postgresContainer = DockerContainer("postgres:9.5.3")
+  private val postgresContainer = DockerContainer("postgres:9.6.9")
     .withPorts(defaultPostgresPort -> None)
     .withEnv(s"POSTGRES_PASSWORD=$postgresPassword")
     .withReadyChecker(
