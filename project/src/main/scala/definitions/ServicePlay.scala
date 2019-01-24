@@ -8,6 +8,8 @@ object ServicePlay extends ServiceModule {
 
   override val id: String = "scommons-service-play"
 
+  override val base: File = file("play")
+
   override def definition: Project = super.definition
     .settings(
       description := "Common Scala Play! utilities and components"

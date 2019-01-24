@@ -8,6 +8,8 @@ object ServiceUtil extends ServiceModule {
 
   override val id: String = "scommons-service-util"
 
+  override val base: File = file("util")
+
   override def definition: Project = super.definition
     .settings(
       description := "Common service utilities"

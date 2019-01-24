@@ -8,6 +8,8 @@ object ServiceDao extends ServiceModule {
 
   override val id: String = "scommons-service-dao"
 
+  override val base: File = file("dao")
+
   override def definition: Project = super.definition
     .settings(
       description := "Common Data Access Object (DAO) utilities and components"

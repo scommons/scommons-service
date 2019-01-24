@@ -8,6 +8,8 @@ object ServiceTest extends ServiceModule {
 
   override val id: String = "scommons-service-test"
 
+  override val base: File = file("test")
+
   override def definition: Project = super.definition
     .settings(
       description := "Common service integration tests utilities"
