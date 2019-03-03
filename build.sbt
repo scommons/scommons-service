@@ -7,8 +7,9 @@ lazy val `scommons-service` = (project in file("."))
   .settings(ServiceModule.settings: _*)
   .settings(
     skip in publish := true,
-    publish := (),
-    publishM2 := ()
+    publish := ((): Unit),
+    publishLocal := ((): Unit),
+    publishM2 := ((): Unit)
   )
   .settings(
     ideExcludedDirectories += baseDirectory.value / "docs" / "_site"
