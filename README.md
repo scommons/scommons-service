@@ -1,24 +1,28 @@
 
 [![Build Status](https://travis-ci.org/scommons/scommons-service.svg?branch=master)](https://travis-ci.org/scommons/scommons-service)
+[![scala-index](https://index.scala-lang.org/scommons/scommons-service/scommons-service-play/latest.svg)](https://index.scala-lang.org/scommons/scommons-service/scommons-service-play)
 [![Coverage Status](https://coveralls.io/repos/github/scommons/scommons-service/badge.svg?branch=master)](https://coveralls.io/github/scommons/scommons-service?branch=master)
 
 ## scommons-service
-Common service/server layer Scala components
+Common Scala service/server layer components and utils.
 
 ### How to add it to your project
 
-Current version is under active development, but you already can try it:
 ```scala
-val scommonsVer = "0.1.0-SNAPSHOT"
+val scommonsApiVer = "1.0.0-SNAPSHOT"
+val scommonsServiceVer = "1.0.0-SNAPSHOT"
 
 libraryDependencies ++= Seq(
   // shared
-  "org.scommons.api" %%% "scommons-api-core" % scommonsVer,
-  "org.scommons.api" %%% "scommons-api-joda-time" % scommonsVer,
+  "org.scommons.api" %%% "scommons-api-core" % scommonsApiVer,
+  "org.scommons.api" %%% "scommons-api-joda-time" % scommonsApiVer,
 
   // server/jvm only
-  "org.scommons.api" %% "scommons-api-play-ws" % scommonsVer,
-  "org.scommons.service" %% "scommons-service-play" % scommonsVer
+  "org.scommons.service" %% "scommons-service-play" % scommonsServiceVer,
+  "org.scommons.service" %% "scommons-service-dao" % scommonsServiceVer,
+  "org.scommons.service" %% "scommons-service-util" % scommonsServiceVer,
+  "org.scommons.service" %% "scommons-service-test" % scommonsServiceVer % "test",
+  "org.scommons.api" %% "scommons-api-play-ws" % scommonsApiVer % "test"
 )
 ```
 
