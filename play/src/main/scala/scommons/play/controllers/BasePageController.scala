@@ -58,6 +58,14 @@ abstract class BasePageController(components: ControllerComponents,
             <link rel="stylesheet" href="$commonAssetsUrl/css/bootstrap-responsive.min.css" />
             <link rel="stylesheet" href="$commonAssetsUrl/css/custom.css" />
             $mainStyle
+
+            <script type="text/javascript">
+              scommons = {
+                UiSettings: {
+                  imgClearCacheUrl: "$commonAssetsUrl/img/clear.cache.gif"
+                }
+              };
+            </script>
           </head>
           <body>
             <div id="root">Loading, please, wait...</div>

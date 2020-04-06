@@ -68,6 +68,14 @@ class BasePageControllerSpec extends BaseControllerSpec
          |            <link rel="stylesheet" href="$prefix/assets/lib/scommons-client-assets/css/bootstrap-responsive.min.css" />
          |            <link rel="stylesheet" href="$prefix/assets/lib/scommons-client-assets/css/custom.css" />
          |            
+         |
+         |            <script type="text/javascript">
+         |              scommons = {
+         |                UiSettings: {
+         |                  imgClearCacheUrl: "$prefix/assets/lib/scommons-client-assets/img/clear.cache.gif"
+         |                }
+         |              };
+         |            </script>
          |          </head>
          |          <body>
          |            <div id="root">Loading, please, wait...</div>
@@ -102,6 +110,14 @@ class BasePageControllerSpec extends BaseControllerSpec
          |            <link rel="stylesheet" href="$prefix/assets/lib/scommons-client-assets/css/bootstrap-responsive.min.css" />
          |            <link rel="stylesheet" href="$prefix/assets/lib/scommons-client-assets/css/custom.css" />
          |            <link rel="stylesheet" href="$prefix/assets/styles/$project-opt.css" />
+         |
+         |            <script type="text/javascript">
+         |              scommons = {
+         |                UiSettings: {
+         |                  imgClearCacheUrl: "$prefix/assets/lib/scommons-client-assets/img/clear.cache.gif"
+         |                }
+         |              };
+         |            </script>
          |          </head>
          |          <body>
          |            <div id="root">Loading, please, wait...</div>
