@@ -16,16 +16,15 @@ before_install:
   fi
 script:
 - sbt clean coverage test coverageReport &&
-  sbt coverageAggregate
-after_success:
-- sbt coveralls
-- if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" -o "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]; then
+  sbt coverageAggregate &&
+  sbt coveralls &&
+  if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" -o "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]; then
     if [ -z "$TRAVIS_TAG" ]; then
        echo "Publish a snapshot";
        sbt clean publish;
     else
        echo "Publish a release version=$TRAVIS_TAG";
-       version=$TRAVIS_TAG sbt clean publishSigned sonatypeRelease;
+       version=$TRAVIS_TAG sbt clean publishSigned sonatypeBundleRelease;
     fi
   else
     echo "This is not a master branch commit. Skipping the publish/release step";

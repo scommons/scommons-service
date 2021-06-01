@@ -2,10 +2,12 @@ package scommons.service.dao
 
 import org.scalatest._
 import org.scalatest.concurrent.{Eventually, ScalaFutures}
-import org.scalatest.mockito.MockitoSugar
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 import org.scalatest.time.{Millis, Seconds, Span}
+import org.scalatestplus.mockito.MockitoSugar
 
-trait BaseDaoSpec extends FlatSpec
+trait BaseDaoSpec extends AnyFlatSpec
   with Matchers
   with MockitoSugar
   with BeforeAndAfterAll

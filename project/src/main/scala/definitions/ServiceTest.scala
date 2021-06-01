@@ -18,15 +18,16 @@ object ServiceTest extends ServiceModule {
   override val internalDependencies: Seq[ClasspathDep[ProjectReference]] = Nil
 
   override val runtimeDependencies: Def.Initialize[Seq[ModuleID]] = Def.setting(Seq(
+    TestLibs.scalaTest.value,
     TestLibs.scalaTestPlusPlay.value,
     TestLibs.akkaStreamTestKit.value,
     TestLibs.dockerTestkitScalatest.value,
     TestLibs.dockerTestkitImpl.value,
-    TestLibs.mockito.value
+    TestLibs.scalaTestPlusMockito.value
   ))
 
   override val testDependencies: Def.Initialize[Seq[ModuleID]] = Def.setting(Seq(
     TestLibs.scalaTest.value,
-    TestLibs.mockito.value
+    TestLibs.scalaTestPlusMockito.value
   ).map(_ % "test"))
 }

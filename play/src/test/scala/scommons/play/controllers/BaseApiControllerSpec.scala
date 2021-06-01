@@ -2,7 +2,7 @@ package scommons.play.controllers
 
 import java.io.{PrintWriter, StringWriter}
 
-import org.mockito.Matchers.{any, eq => mEq}
+import org.mockito.ArgumentMatchers.{any, eq => mEq}
 import org.mockito.Mockito._
 import org.mockito.invocation.InvocationOnMock
 import org.scalatest._
@@ -131,7 +131,7 @@ class BaseApiControllerSpec extends BaseControllerSpec {
     //then
     assertResult(result, 400, toJson(StatusResponse(ApiStatus(400, "test exception"))))
 
-    verifyZeroInteractions(mockLogger)
+    verifyNoInteractions(mockLogger)
   }
 
   it should "fail with 500 status if IllegalArgumentException during request processing" in {
