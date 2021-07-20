@@ -1,7 +1,7 @@
 package scommons.play.controllers
 
 import akka.actor.ActorSystem
-import akka.stream.{ActorMaterializer, ActorMaterializerSettings}
+import akka.stream.Materializer
 import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.flatspec.AnyFlatSpec
@@ -22,7 +22,7 @@ abstract class BaseControllerSpec extends AnyFlatSpec
   )
 
   protected implicit val system: ActorSystem = ActorSystem(getClass.getSimpleName)
-  protected implicit val mat: ActorMaterializer = ActorMaterializer(ActorMaterializerSettings(system))
+  protected implicit val mat: Materializer = Materializer(system)
 
   override protected def afterAll(): Unit = {
     system.terminate().futureValue
