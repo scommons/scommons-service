@@ -6,8 +6,8 @@ import com.whisk.docker.scalatest.DockerTestKit
 import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures
 
-import scala.collection.JavaConverters._
 import scala.concurrent.duration._
+import scala.jdk.CollectionConverters._
 
 trait DockerIntegrationTestSuite extends TestSuite
   with ScalaFutures
@@ -22,7 +22,7 @@ trait DockerIntegrationTestSuite extends TestSuite
 
   def configure(config: Config, overrideWithConf: (String, Any)*): Config = {
     def toJava(data: Any): Any = data match {
-      case map: Map[_, _] => map.mapValues(toJava).asJava
+      case map: Map[_, _] => map.view.mapValues(toJava).toMap.asJava
       case iterable: Iterable[_] => iterable.map(toJava).asJava
       case v => v
     }

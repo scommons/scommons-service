@@ -27,7 +27,7 @@ class BaseApiControllerSpec extends BaseControllerSpec {
   private val controller = spy(new TestApiController)
 
   override protected def beforeEach(): Unit = {
-    reset(controller, mockLogger)
+    reset[AnyRef](controller, mockLogger)
   }
 
   override protected def afterEach(): Unit = {
@@ -43,8 +43,8 @@ class BaseApiControllerSpec extends BaseControllerSpec {
     var futureResult: Future[Result] = null
     doAnswer((invocation: InvocationOnMock) => {
       val block = invocation.getArguments.head.asInstanceOf[Request[AnyContent] => Future[Result]]
-      futureResult = block(request.asInstanceOf[Request[AnyContent]])
-      action.asInstanceOf[Action[AnyContent]]
+      futureResult = block(request)
+      action
     }).when(controller).anyAction(anyFunc1[Request[AnyContent], Future[Result]])
 
     //when
@@ -65,8 +65,8 @@ class BaseApiControllerSpec extends BaseControllerSpec {
     var futureResult: Future[Result] = null
     doAnswer((invocation: InvocationOnMock) => {
       val block = invocation.getArguments.head.asInstanceOf[Request[JsValue] => Future[Result]]
-      futureResult = block(request.asInstanceOf[Request[JsValue]])
-      action.asInstanceOf[Action[JsValue]]
+      futureResult = block(request)
+      action
     }).when(controller).jsonAction(anyFunc1[Request[JsValue], Future[Result]])
 
     val data = TestData(1, "test name")
@@ -111,8 +111,8 @@ class BaseApiControllerSpec extends BaseControllerSpec {
     //then
     assertResult(result, 400, toJson(StatusResponse(ApiStatus(400,
       "Failed to parse request body",
-        """(/id,List(JsonValidationError(List(error.path.missing),WrappedArray())))
-          |(/name,List(JsonValidationError(List(error.path.missing),WrappedArray())))""".stripMargin))))
+        """(/name,List(JsonValidationError(List(error.path.missing),ArraySeq())))
+          |(/id,List(JsonValidationError(List(error.path.missing),ArraySeq())))""".stripMargin))))
 
     verify(block, times(0)).apply(any[TestData])
   }

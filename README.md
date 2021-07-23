@@ -1,6 +1,6 @@
 
 [![Build Status](https://travis-ci.com/scommons/scommons-service.svg?branch=master)](https://travis-ci.com/scommons/scommons-service)
-[![scala-index](https://index.scala-lang.org/scommons/scommons-service/scommons-service-play/latest.svg)](https://index.scala-lang.org/scommons/scommons-service/scommons-service-play)
+[![scala-index](https://index.scala-lang.org/scommons/scommons-service/scommons-service-play/latest-by-scala-version.svg?targetType=Jvm)](https://index.scala-lang.org/scommons/scommons-service/scommons-service-play)
 [![Coverage Status](https://coveralls.io/repos/github/scommons/scommons-service/badge.svg?branch=master)](https://coveralls.io/github/scommons/scommons-service?branch=master)
 
 ## scommons-service

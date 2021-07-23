@@ -20,7 +20,9 @@ class CommonDaoSpec extends BaseDaoSpec {
 
     //then
     val context = s"SomeTestDao.$queryName"
-    val Some(Failure(exception)) = Await.ready(result, 5.seconds).value
+    val exception = inside(Await.ready(result, 5.seconds).value) {
+      case Some(Failure(ex)) => ex
+    }
     exception.getMessage shouldBe s"Expected only one result, but actual size is 2 in $context"
   }
 

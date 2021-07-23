@@ -40,7 +40,7 @@ abstract class BasePageController(components: ControllerComponents,
 
     val mainStyle = styleUrl().map { url =>
       html"""<link rel="stylesheet" href="$url" />"""
-    }.getOrElse("")
+    }.getOrElse(html"")
 
     val mainScript = scriptUrl(".js")
     val loaderScript = scriptUrl("-loader.js")
