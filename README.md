@@ -1,5 +1,5 @@
 
-[![Build Status](https://travis-ci.com/scommons/scommons-service.svg?branch=master)](https://travis-ci.com/scommons/scommons-service)
+[![CI](https://github.com/scommons/scommons-service/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/scommons/scommons-service/actions/workflows/ci.yml?query=workflow%3Aci+branch%3Amaster)
 [![scala-index](https://index.scala-lang.org/scommons/scommons-service/scommons-service-play/latest.svg)](https://index.scala-lang.org/scommons/scommons-service/scommons-service-play)
 [![Coverage Status](https://coveralls.io/repos/github/scommons/scommons-service/badge.svg?branch=master)](https://coveralls.io/github/scommons/scommons-service?branch=master)
 
