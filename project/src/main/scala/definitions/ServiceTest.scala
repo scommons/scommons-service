@@ -3,6 +3,7 @@ package definitions
 import common.TestLibs
 import sbt.Keys._
 import sbt._
+import scoverage.ScoverageKeys._
 
 object ServiceTest extends ServiceModule {
 
@@ -12,7 +13,9 @@ object ServiceTest extends ServiceModule {
 
   override def definition: Project = super.definition
     .settings(
-      description := "Common service integration tests utilities"
+      description := "Common service integration tests utilities",
+      
+      coverageEnabled := false
     )
 
   override val internalDependencies: Seq[ClasspathDep[ProjectReference]] = Nil
